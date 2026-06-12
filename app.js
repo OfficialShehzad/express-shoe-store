@@ -1,11 +1,14 @@
 require("./config/db/db.js");
 
 const express = require('express');
+const cors = require('cors'); 
 const app = express();
+
 
 const authRoutes = require('./modules/auth/auth.routes.js');
 
 app.use(express.json());
+app.use(cors())
 
 
 // HOME ROUTE
