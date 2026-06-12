@@ -1,7 +1,18 @@
 
 
-MODULES REQUIRED
+VERCEL HOSTING FILES
+/api/index.js
+* Uses app.js as entry point to the app
+* npm run start -> used automaticall in vercel
 
+LOCAL RUNNING FILES
+* npm run dev
+* Use server.js to run on port 3000
+
+
+|------------------|
+| MODULES REQUIRED |
+|------------------|
 models
 ---
 1.id

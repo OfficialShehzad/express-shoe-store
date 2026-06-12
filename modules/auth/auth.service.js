@@ -26,6 +26,18 @@ const login = async (email, password) => {
 };
 
 const register = async (payload) => {
+    if (!payload.name) {
+        throw new Error("Name is required");
+    }
+
+    if (!payload.email) {
+        throw new Error("Email is required");
+    }
+
+    if (!payload.password) {
+        throw new Error("Password is required");
+    }
+    
     const existingUser = await UserModel.findOne({
         email: payload.email,
     });
