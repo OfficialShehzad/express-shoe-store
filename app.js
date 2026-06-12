@@ -1,7 +1,9 @@
+require("./config/db/db.js");
+
 const express = require('express');
 const app = express();
 
-const appRoutes = require('./modules/auth/auth.routes.js');
+const authRoutes = require('./modules/auth/auth.routes.js');
 
 app.use(express.json());
 
