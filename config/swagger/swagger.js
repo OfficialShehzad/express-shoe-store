@@ -13,13 +13,9 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
-                description: 'Local dev server',
+                url: process.env.NODE_ENV === 'development' ? process.env.DEV_API_URL : 'http://localhost:3000',
+                description: process.env.NODE_ENV === 'development' ? 'Dev server on vercel' : 'Local dev server',
             },
-            {
-                url: process.env.DEV_API_URL,
-                description: 'Development server',
-            }
         ],
         components: {
             securitySchemes: {
