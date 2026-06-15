@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -12,8 +14,12 @@ const options = {
         servers: [
             {
                 url: 'http://localhost:3000',
-                description: 'Development server',
+                description: 'Local dev server',
             },
+            {
+                url: process.env.DEV_API_URL,
+                description: 'Development server',
+            }
         ],
         components: {
             securitySchemes: {
