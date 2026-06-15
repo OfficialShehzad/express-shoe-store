@@ -2,15 +2,14 @@ require('dotenv').config();
 
 const jwt = require("jsonwebtoken");
 const UserModel = require("../../models/user.model.js");
+const { serviceErrorThrower } = require('../../utils/helper.js');
 
 const login = async (email, password) => {
     const user = await UserModel.findOne({ email });
 
-    if (!user) throw new Error("User not found")
+    if (!user) serviceErrorThrower(404, "User not found")
 
-    console.log(user)
-
-    if (user.password !== password) throw new Error("Invalid password")
+    if (user.password !== password) serviceErrorThrower(401, "Invalid password")
 
     const token = jwt.sign(
         {
@@ -28,29 +27,21 @@ const login = async (email, password) => {
 };
 
 const register = async (payload) => {
-    if (!payload.name) {
-        throw new Error("Name is required");
-    }
+    const { name, email, password } = payload;
 
-    if (!payload.email) {
-        throw new Error("Email is required");
-    }
+    if (!name) serviceErrorThrower(400, "Name is required");
+    if (!email) serviceErrorThrower(400, "Email is required");
+    if (!password) serviceErrorThrower(400, "Password is required");
 
-    if (!payload.password) {
-        throw new Error("Password is required");
-    }
-
-    const existingUser = await UserModel.findOne({
-        email: payload.email,
-    });
-
-    if (existingUser) {
-        throw new Error("Email already exists");
-    }
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) serviceErrorThrower(409, "User with the same email already exists");
 
     const user = await UserModel.create(payload);
 
-    return user;
+    const userObj = user.toObject();
+    delete userObj.password;
+
+    return userObj;
 };
 
 const authService = { login, register };

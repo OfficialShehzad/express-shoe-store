@@ -1,5 +1,7 @@
 const authService = require("./auth.service.js");
 
+const { controllerErrorCatcher } = require("../../utils/helper.js");
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -11,10 +13,7 @@ const login = async (req, res) => {
             data: result,
         });
     } catch (error) {
-        return res.status(401).json({
-            success: false,
-            message: error.message,
-        });
+        return controllerErrorCatcher(res, error);
     }
 };
 
@@ -27,10 +26,7 @@ const register = async (req, res) => {
             data: result,
         });
     } catch (error) {
-        return res.status(400).json({
-            success: false,
-            message: error.message,
-        });
+        return controllerErrorCatcher(res, error);
     }
 };
 

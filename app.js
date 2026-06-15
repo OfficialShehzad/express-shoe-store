@@ -7,6 +7,7 @@ const swaggerConfigs = require('./config/swagger/swagger.js');
 const { swaggerUi, specs } = swaggerConfigs;
 
 const authRoutes = require('./modules/auth/auth.routes.js');
+const brandRoutes = require('./modules/brands/brands.routes.js');
 
 // EXPRESS APP INITIALIZATION
 const app = express();
@@ -21,5 +22,7 @@ app.get('/', (req, res) => res.send('Welcome to the shoe store. Go to /api-docs 
 
 // ROUTES
 app.use('/auth', authRoutes);
+app.use('/brands', brandRoutes);
+
 
 module.exports = app;
